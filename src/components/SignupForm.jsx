@@ -17,22 +17,24 @@ const SignupForm = () => {
   const [isConfirming, setIsConfirming] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  // Validation
+ 
   const validateForm = () => {
     const newErrors = {};
     if (!formData.name.trim()) newErrors.name = "Le nom est requis.";
     if (!/\S+@\S+\.\S+/.test(formData.email))
       newErrors.email = "Email invalide.";
     if (formData.password.length < 8)
-      newErrors.password = "Mot de passe trop court (min 6 caractères).";
+      newErrors.password = "Mot de passe trop court (min 8 caractères).";
+     if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(formData.password))
+      newErrors.password = "Le mot de passe doit contenir au moins 8 caractères, une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial.";
     if (formData.password !== formData.confirmPassword)
       newErrors.confirmPassword = "Les mots de passe ne correspondent pas.";
     if (
       !formData.age ||
       isNaN(Number(formData.age)) ||
-      Number(formData.age) < 13
+      Number(formData.age) < 18
     )
-      newErrors.age = "Âge invalide (minimum 13 ans).";
+      newErrors.age = "Âge invalide (minimum 18 ans).";
     if (!formData.gender) newErrors.gender = "Veuillez sélectionner un genre.";
     return newErrors;
   };
@@ -89,7 +91,7 @@ const SignupForm = () => {
       <h2>Formulaire d'inscription</h2>
 
       {isSubmitted ? (
-        <div className="success-msg">✅ Inscription réussie !</div>
+        <div className="success-msg"> Inscription réussie 🎉 !</div>
       ) : isConfirming ? (
         <div className="confirmation-box">
           <h3>Confirmez vos informations :</h3>
@@ -170,7 +172,7 @@ const SignupForm = () => {
             )}
           </div>
 
-          {/* Confirmer mot de passe */}
+            {/* Confirmer le mot de passe */}
           <div className="form-group">
             <label>Confirmer le mot de passe</label>
             <input
@@ -183,6 +185,7 @@ const SignupForm = () => {
             {touched.confirmPassword && currentErrors.confirmPassword && (
               <p className="error">{currentErrors.confirmPassword}</p>
             )}
+            
           </div>
 
           {/* Âge */}

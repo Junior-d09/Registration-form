@@ -154,7 +154,8 @@
       padding: 8px;
       background: white;
       border-radius: 6px;
-      font-size: 15px;
+      color: black;
+      font-size: bold;
     }
 
     .confirmation-box ul li strong {
