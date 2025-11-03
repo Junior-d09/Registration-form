@@ -20,7 +20,8 @@ const SignupForm = () => {
  
   const validateForm = () => {
     const newErrors = {};
-    if (!formData.name.trim()) newErrors.name = "Le nom est requis.";
+    if (formData.name.trim().length < 3)
+        newErrors.name = "Le nom est requis.";
     if (!/\S+@\S+\.\S+/.test(formData.email))
       newErrors.email = "Email invalide.";
     if (formData.password.length < 8)
